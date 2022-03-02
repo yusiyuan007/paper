@@ -1,0 +1,60 @@
+% !TeX root = ../main.tex
+
+\ustcsetup{
+  keywords = {
+    电子系统级设计, 轻量级仿真平台， Simpy, 多目标优化, 设计空间探索，硬件平台建模
+  },
+  keywords* = {
+    Electronic System Level,Lightweight simulation platform, Simpy, Multi-objective optimization, Design Space Exploration，Hardware platform modeling
+  },
+}
+
+\begin{abstract}
+  随着片上系统的设计复杂性不断提高，在设计前期通过对系统层次进行软、硬件的划分对片上系统各方面性能的影响日趋增加，
+  迫切需要高效快捷的性能分析和验证方法学。而ESL方法不仅提供快速的仿真验证手段，还提供详细的性能分析指标，已经成为
+  当今SoC设计领域最前沿的设计方法。
+
+  由于片上系统设计复杂性的提高，在方案设计的过程中考虑到系统设计的每个方面变得不那么可能，因此我们需要自动化的工具
+  或者流程去完成前期对巨大的设计空间的剪枝，设计空间探索（Design Space Exploration，DSE）成为了一种很好的方法去实
+  现这一功能。但在如今系统级仿真过程中，仿真系统的复杂度越来越大，从而导致系统的复杂程度不适于进行快速的架构探索，所
+  以我们需要建立一个轻量级的仿真平台，并在这个平台的基础上进行快速的架构探索。针对以上问题，本文做了以下几部分工作：
+
+  \begin{enumerate}
+    \item 设计并实现了轻量级仿真平台中硬件平台模块，包括硬件平台构建模块以及硬件模型建模。与仿真平台
+    软件部分以及总线互联模块共同组成整个轻量级仿真平台，以用例文件
+    和硬件配置文件作为输入，完成业务仿真整个流程，并最终输出仿真结果以及存
+    储仿真过程中信息的数据库文件，提高了业务仿真的效率。
+    \item 设计并实现设计空间探索流程中的训练集生成模块以及仿真平台预测模型，参与实现了多目标的
+    设计空间探索，得到了最终的帕累托最优解。并通过对结果的对比分析，得出方案设计的相应结论。
+  \end{enumerate}
+
+  本文详细介绍了包含轻量级仿真平台硬件平台建模和设计空间探索流程中训练集生成模块以及仿真平台预测模型的需求分析、概要设计、系统设计与实现和系统测试与结果分析。
+  本文为业内在前期芯片架构方案设计阶段提供新的一整套解决方案，并设计并实现了一个轻量级仿真平台，为一些快速的设计方案的实
+  现提供了更加方便的平台。
+\end{abstract}
+
+\begin{abstract*}
+  As the design complexity of the system-on-chip continues to increase, the division of software and hardware at 
+  the system level in the early design stage has an increasing impact on the performance of all aspects of the 
+  system-on-chip. There is an urgent need for efficient and fast performance analysis and verification methodologies. 
+  The ESL method not only provides rapid simulation verification methods, but also provides detailed performance analysis 
+  indicators, which has become the most cutting-edge design method in the field of SoC design today.
+
+
+  Due to the increase in the complexity of system-on-chip design, it has become impossible to consider every aspect of system 
+  design in the process of scheme design. Therefore, we need automated tools or processes to complete the pruning of the huge 
+  design space in the early stage. Design Space Exploration (DSE) has become a good way to achieve this function. But in the 
+  current system-level simulation process, the complexity of the simulation system is getting bigger and bigger, which makes 
+  the complexity of the system unsuitable for rapid architecture exploration. Therefore, we need to build a lightweight simulation 
+  platform. Based on the rapid structure exploration. In response to the above problems, this article has done the following parts:
+
+  \begin{enumerate}
+    \item The hardware platform module in the lightweight simulation platform is designed and implemented, including hardware platform construction module and hardware model modeling. Together with the software part of the simulation platform and the bus interconnection module, it forms the whole lightweight simulation platform, takes the use case file and hardware configuration file as the input, completes the whole process of business simulation, and finally outputs the simulation results and the database file storing the information in the simulation process, which improves the efficiency of business simulation.
+    \item Design and implement the training set generation module and simulation platform prediction model in the design space exploration process, participate in the multi-objective design space exploration, and obtain the final Pareto optimal solution. Through the comparative analysis of the results, the corresponding conclusions of the scheme design are obtained.
+  \end{enumerate}
+
+  This paper introduces in detail the demand analysis, outline design, system design and implementation, system test and result analysis of the training set generation module and simulation platform prediction model in the process of hardware platform modeling and design space exploration of lightweight simulation platform. This 
+  article provides a new set of solutions for the industry in the pre-chip architecture design stage, and designs and implements 
+  a lightweight simulation platform, which provides a more convenient platform for the realization of some rapid design solutions.
+
+\end{abstract*}
