@@ -1,0 +1,228 @@
+\begin{thebibliography}{36}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{#1}
+\expandafter\ifx\csname urlstyle\endcsname\relax\else
+  \urlstyle{same}\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \DeclareUrlCommand\doi{\urlstyle{rm}}
+  \def\eprint#1#2{#2}
+\else
+  \def\doi#1{\href{https://doi.org/#1}{\nolinkurl{#1}}}
+  \let\eprint\href
+\fi
+
+\bibitem[Bjrn et~al.(2010)Bjrn, Sander, Andreas, Bernauer, Wolfgang, and
+  Rosenstiel]{1}
+BJRN, SANDER, ANDREAS, et~al.
+\newblock Design and run-time reliability at the electronic system
+  level\allowbreak[J].
+\newblock Information and Media Technologies, 2010, 5\allowbreak (4):
+  1043-1063.
+
+\bibitem[Swan(2006)]{2}
+SWAN~S.
+\newblock Systemc transaction level models and rtl
+  verification\allowbreak[C]//\allowbreak
+2006 43rd ACM/IEEE Design Automation Conference.
+\newblock 2006: 90-92.
+
+\bibitem[齐晓彬(2007)]{3}
+齐晓彬.
+\newblock
+  基于ESL方法的AVS和H.264通用解码器的软硬件协同设计\allowbreak[D].
+\newblock 上海交通大学, 2007.
+
+\bibitem[Gajski et~al.(1992)Gajski, Dutt, Wu, and Lin]{4}
+GAJSKI~D, DUTT~N, WU~A, et~al.
+\newblock High - level synthesis: Introduction to chip and system
+  design\allowbreak[C]//\allowbreak
+1992.
+
+\bibitem[Holzer et~al.(2007)Holzer, Knerr, and Rupp]{5}
+HOLZER~M, KNERR~B, RUPP~M.
+\newblock Design space exploration with evolutionary multi-objective
+  optimisation\allowbreak[C]//\allowbreak
+2007 International Symposium on Industrial Embedded Systems.
+\newblock IEEE, 2007: 126-133.
+
+\bibitem[T. et~al.(2002-2020)T. and Helmbold]{6}
+T.~V, HELMBOLD~M~K.
+\newblock Simpy\allowbreak[EB/OL].
+\newblock 2002-2020.
+\newblock \url{http://simpy.readthedocs.org/}.
+
+\bibitem[Graphics(2009)]{38}
+GRAPHICS~M.
+\newblock Vista architect - system level design solution for performance and
+  power\allowbreak[J/OL].
+\newblock 2009.
+\newblock \url{www.mentor.com}.
+
+\bibitem[Banerjee~A(2007)]{7}
+BANERJEE~A~S~B.
+\newblock Introduction to systemc\allowbreak[EB/OL].
+\newblock 2007.
+\newblock \url{https://doi.org/10.1007/978-3-319-01147-9_1}.
+
+\bibitem[田靖\ 等(2007)田靖 and 田泽]{37}
+田靖, 田泽.
+\newblock AFDX-ES SoC虚拟仿真平台的构建与应用\allowbreak[J].
+\newblock 计算机技术与发展, 2007, 20: 192-194+198.
+
+\bibitem[刘珂\ 等(2002)刘珂, 郑学仁, and 李斌]{40}
+刘珂, 郑学仁, 李斌.
+\newblock 软硬件协同设计语言System
+  C在SoC设计中的应用\allowbreak[J].
+\newblock 半导体技术, 2002: 22-25+47.
+
+\bibitem[Kakoee et~al.(2008)Kakoee, Neishaburi, and Mohammadi]{8}
+KAKOEE~M~R, NEISHABURI~M~H, MOHAMMADI~S.
+\newblock Graph based test case generation for tlm functional
+  verification\allowbreak[J].
+\newblock Microprocessors and Microsystems, 2008, 32\allowbreak (5-6): 288-295.
+
+\bibitem[许汉荆;陈杰;刘建;敖天勇;奚杰(2009)]{9}
+许汉荆;陈杰;刘建;敖天勇;奚杰.
+\newblock SystemC建模在多核处理器设计中的应用\allowbreak[J].
+\newblock 国外电子测量技术, 2009, 28: 75-78.
+
+\bibitem[Tinini et~al.(2020)Tinini, dos Santos, Figueiredo, and Batista]{10}
+TININI~R~I, DOS SANTOS~M~R~P, FIGUEIREDO~G~B, et~al.
+\newblock 5gpy: A simpy-based simulator for performance evaluations in 5g
+  hybrid cloud-fog ran architectures\allowbreak[J].
+\newblock Simulation Modelling Practice and Theory, 2020, 101: 102030.
+
+\bibitem[Pinho et~al.(2016)Pinho, Coelho, and Boaventura-Cunha]{11}
+PINHO~T~M, COELHO~J~P, BOAVENTURA-CUNHA~J.
+\newblock Forest-based supply chain modelling using the simpy simulation
+  framework\allowbreak[J].
+\newblock IFAC-PapersOnLine, 2016, 49\allowbreak (2): 90-95.
+
+\bibitem[蓝帆(2016)]{39}
+蓝帆.
+\newblock
+  片上网络的系统可工作性建模、仿真与加速\allowbreak[D].
+\newblock 浙江大学, 2016.
+
+\bibitem[Nocua et~al.(2019)Nocua, Bruguier, Sassatelli, and Gamatié]{12}
+NOCUA~A, BRUGUIER~F, SASSATELLI~G, et~al.
+\newblock A gem5 trace-driven simulator for fast architecture exploration of
+  openmp workloads\allowbreak[J].
+\newblock Microprocessors and Microsystems, 2019, 67: 42-55.
+
+\bibitem[Amir et~al.(2020{\natexlab{a}})Amir and Givargis]{13}
+AMIR~M, GIVARGIS~T.
+\newblock Pareto optimal design space exploration of cyber-physical
+  systems\allowbreak[J].
+\newblock Internet of Things, 2020{\natexlab{a}}, 12: 100308.
+
+\bibitem[Wolf et~al.(2008)Wolf, Amine, and Martin]{14}
+WOLF~W, AMINE~A~J, MARTIN~G.
+\newblock Multiprocessor system-on-chip (mpsoc) technology\allowbreak[J].
+\newblock IEEE Transactions on Computer-Aided Design of Integrated Circuits and
+  Systems, 2008, 27\allowbreak (10): 1701-1713.
+
+\bibitem[Singh et~al.(2013)Singh, Shafique, Kumar, and Henkel]{15}
+SINGH~A~K, SHAFIQUE~M, KUMAR~A, et~al.
+\newblock Mapping on multi/many-core systems: Survey of current and emerging
+  trends\allowbreak[J].
+\newblock 2013: 1-10.
+
+\bibitem[Bailey et~al.(2007)Bailey, Martin, and Piziali]{41}
+BAILEY~B, MARTIN~G, PIZIALI~A.
+\newblock Chapter 1 - what is esl?\allowbreak[M]//\allowbreak
+ESL Design and Verification.
+\newblock Morgan Kaufmann, 2007: 1-9.
+
+\bibitem[郭炜等(2011)]{42}
+郭炜等.
+\newblock SoC设计方法与实现（第2版）\allowbreak[M].
+\newblock 电子工业出版社, 2011: 54~55.
+
+\bibitem[陈碧云\ 等(2015)陈碧云, 韦杏秋, 陈绍南, and
+  刘柏江]{20}
+陈碧云, 韦杏秋, 陈绍南, 等.
+\newblock
+  基于多种群遗传算法的电力系统多目标优化\allowbreak[J].
+\newblock 电力系统及其自动化学报, 2015, 27: 24-29.
+
+\bibitem[Fonseca et~al.(1993)Fonseca, Fleming, et~al.]{21}
+FONSECA~C~M, FLEMING~P~J, et~al.
+\newblock Genetic algorithms for multiobjective optimization:
+  Formulationdiscussion and generalization.\allowbreak[C]//\allowbreak
+Icga: volume~93.
+\newblock Citeseer, 1993: 416-423.
+
+\bibitem[郑金华\ 等(2014)郑金华, 申瑞珉, 李密青, 邹娟, and
+  袁琦钊]{22}
+郑金华, 申瑞珉, 李密青, 等.
+\newblock 多目标优化的进化环境模型及实现\allowbreak[J].
+\newblock 计算机学报, 2014, 37: 2530-2547.
+
+\bibitem[Rao et~al.(2021)Rao and Lakshmi]{23}
+RAO~R, LAKSHMI~R.
+\newblock Ranking of pareto-optimal solutions and selecting the best solution
+  in multi- and many-objective optimization problems using
+  r-method\allowbreak[J].
+\newblock Soft Computing Letters, 2021: 100015.
+
+\bibitem[Mock(2011)]{24}
+MOCK~W~B~T.
+\newblock Pareto optimality\allowbreak[M].
+\newblock 2011: 808-809.
+
+\bibitem[韩贝(2019)]{25}
+韩贝.
+\newblock SQLite数据库研究与应用\allowbreak[D].
+\newblock 南京邮电大学, 2019.
+
+\bibitem[叶清明\ 等(2017)叶清明, 刘晓燕, and 付晓东]{26}
+叶清明, 刘晓燕, 付晓东.
+\newblock 基于MDA的SQLite碎片数据清除技术\allowbreak[J].
+\newblock 计算机应用与软件, 2017, 34: 50-54.
+
+\bibitem[伍智平(2016)]{27}
+伍智平.
+\newblock 刍议嵌入式数据库SQLite的原理与应用\allowbreak[J].
+\newblock 通讯世界, 2016: 79.
+
+\bibitem[张晶(2017)]{29}
+张晶.
+\newblock
+  基于AdaBoost回归树的多目标预测算法的研究\allowbreak[D].
+\newblock 北京交通大学, 2017.
+
+\bibitem[喻伟\ 等(2012)喻伟, 李百战, 杨明宇, and 杜秀媛]{30}
+喻伟, 李百战, 杨明宇, 等.
+\newblock 基于人工神经网络的建筑多目标预测模型\allowbreak[J].
+\newblock 中南大学学报(自然科学版), 2012, 43: 4949-4955.
+
+\bibitem[施华钧(2013)]{31}
+施华钧.
+\newblock 高效异步FIFO的设计实现\allowbreak[D].
+\newblock 湖南大学, 2013.
+
+\bibitem[Li et~al.(2019)Li, Bhargava, Whatmough, and Wong]{32}
+LI~H, BHARGAVA~M, WHATMOUGH~P~N, et~al.
+\newblock On-chip memory technology design space explorations for mobile deep
+  neural network accelerators\allowbreak[C]//\allowbreak
+Proceedings of the 56th Annual Design Automation Conference 2019.
+\newblock 2019: 6.
+
+\bibitem[冯浩(2017)]{33}
+冯浩.
+\newblock 动态可切换流水线RISC-V处理器建模与实现\allowbreak[D].
+\newblock 西安理工大学, 2017.
+
+\bibitem[杨学兵\ 等(2007)杨学兵 and 张俊]{34}
+杨学兵, 张俊.
+\newblock 决策树算法及其核心技术\allowbreak[J].
+\newblock 计算机技术与发展, 2007, 17\allowbreak (1): 43-45.
+
+\bibitem[Amir et~al.(2020{\natexlab{b}})Amir and Givargis]{36}
+AMIR~M, GIVARGIS~T.
+\newblock Pareto optimal design space exploration of cyber-physical
+  systems\allowbreak[J].
+\newblock Internet of Things, 2020{\natexlab{b}}, 12: 100308.
+
+\end{thebibliography}

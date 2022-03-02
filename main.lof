@@ -1,0 +1,58 @@
+\addvspace {10.0pt}
+\contentsline {figure}{\numberline {1.1}{\ignorespaces 软硬件协同设计的基本思路\relax }}{1}{figure.caption.14}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces 基于SystemC的软硬件协同设计流程图\relax }}{3}{figure.caption.15}%
+\addvspace {10.0pt}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces ESL设计流程图\relax }}{7}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces 仿真平台功能模块示意图\relax }}{9}{figure.caption.17}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces 仿真平台业务仿真流程图\relax }}{10}{figure.caption.18}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces 任务数据流图示例图\relax }}{11}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces 调度器模块结构图\relax }}{12}{figure.caption.20}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Port模块关系类图\relax }}{13}{figure.caption.21}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces MasterPortMgnt实现流程图\relax }}{14}{figure.caption.22}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces BUS模块关系类图\relax }}{15}{figure.caption.23}%
+\addvspace {10.0pt}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces GeneralFifo模块用例图\relax }}{17}{figure.caption.26}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Processor模块用例图\relax }}{18}{figure.caption.27}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Memory模块用例图\relax }}{19}{figure.caption.28}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces 普通用户1用例图\relax }}{20}{figure.caption.29}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces 普通用户1执行用例文件用例图\relax }}{20}{figure.caption.30}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces 高级用户用例图\relax }}{22}{figure.caption.31}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces 普通用户2用例图\relax }}{22}{figure.caption.32}%
+\addvspace {10.0pt}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces 系统整体框架图\relax }}{26}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces 仿真平台整体架构图\relax }}{27}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces 硬件平台生成图\relax }}{28}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces 硬件平台生成活动图\relax }}{28}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces GeneralFifo流程图\relax }}{30}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Memory模块结构图\relax }}{31}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Processor模块结构图\relax }}{31}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces 设计空间探索流程图\relax }}{33}{figure.caption.41}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces 训练集生成模块流程图\relax }}{34}{figure.caption.42}%
+\addvspace {10.0pt}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces 硬件平台树状结构示意图\relax }}{39}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces 硬件模块实例化模块类图\relax }}{40}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces GeneralFifo类图\relax }}{41}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces GeneralModule关系类图\relax }}{42}{figure.caption.53}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Processor模块类图\relax }}{43}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces 三种数据类型类图\relax }}{44}{figure.caption.55}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces 数据类型关系图\relax }}{44}{figure.caption.56}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces DMA模块流水线时序图\relax }}{45}{figure.caption.57}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces HAC模块三级流水时序图\relax }}{46}{figure.caption.58}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Bank模块交织方案\relax }}{47}{figure.caption.59}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Memory模块处理流程图\relax }}{47}{figure.caption.60}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces 设计空间探索模块整体流程图\relax }}{48}{figure.caption.61}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces 训练集文件格式示例\relax }}{49}{figure.caption.63}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces 仿真结果与预测结果对比图\relax }}{50}{figure.caption.67}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces 设计空间探索结果仿真目标值结果对比图\relax }}{51}{figure.caption.68}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces 50组设计方案时延结果对比\relax }}{51}{figure.caption.69}%
+\contentsline {figure}{\numberline {5.17}{\ignorespaces 50组设计方案核利用率结果对比\relax }}{52}{figure.caption.70}%
+\contentsline {figure}{\numberline {5.18}{\ignorespaces 50组设计方案核一致性结果对比\relax }}{52}{figure.caption.71}%
+\contentsline {figure}{\numberline {5.19}{\ignorespaces 仿真平台结果分析图\relax }}{53}{figure.caption.72}%
+\addvspace {10.0pt}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces 硬件平台构建输出消息\relax }}{59}{figure.caption.78}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces 仿真运行输出消息\relax }}{60}{figure.caption.80}%
+\addvspace {10.0pt}
+\addvspace {10.0pt}
+\addvspace {10.0pt}
+\addvspace {10.0pt}
+\contentsfinish 
