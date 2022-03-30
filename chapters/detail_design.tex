@@ -35,7 +35,10 @@ TopLevel仿真平台的设计与实现是整个系统实现部分的重中之重
 Processor和总线模块等等在实例化的时候的所需的所有具体信息、V801Route.xml
 描述了所有实例化后的硬件模块之间的路由信息，将各个硬件模型通过总线连接形
 成一个完整的硬件平台。在实际的用例仿真业务中，在进行用例仿真之前，仿真系统
-先根据硬件平台配置文件对硬件平台进行构建，整个硬件平台的实例化的顺序如图5.1所示。
+先根据硬件平台配置文件对硬件平台进行构建。PlateformBuilder会实例化DSP、DMA
+以及HAC等等硬件模型，当一个子组件中所有的硬件模块全部实例化后，再继续实例化
+其他子组件中的硬件模块，最后当所有组件中硬件模块实例化成功后，整个仿真平台
+的硬件平台就构建成功了。
 
 我们通过创建SaeSimulator单实例去实现整个平台初始化的功能，整个SaeSimulator
 的类图如图5.2所示：
@@ -63,101 +66,14 @@ set函数，支持外部对类里面私有函数的设置和读取。最后，�
 通过路由信息中Port口连接起来。最后，通过DatabaseMgnt类实例化并
 连接数据库文件。
 
-% \subsection{TaskGraphManager模块设计与实现}
-
-% TopLevel仿真平台的输入任务模型是实例级别的数据流图模型，任务之
-% 间以数据为触发关系，任务之间的触发为实时触发。当任务的输入数据
-% 全部就绪后，该任务实例才会开始执行，一旦任务执行完毕，其输出数
-% 据被触发搬运。整体的任务的数据流图示例图如图5-2所示：
-% \\
-% \\
-% \\
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=1\textwidth]{任务数据流图示例图.png}
-%     \caption{任务数据流图示例图}
-%     \label{fig:badge}
-% \end{figure}
-
-% 仿真平台的任务用例输入类型是描述了所有任务相关信息的
-% Excel文件，包括任务类型、任务执行的所属调度器、任务的
-% 输入输出数据，数据的大小类型等等。平台初始化时通过
-% SaeSimulaor单实例中的load\_task\_praph方法解析任务信息
-% 文件，并通过TaskGraphMgnt类管理。TaskGraphManager类以及
-% 相关类的类图如图5-3所示:
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=1\textwidth]{TaskGraphMgnt模块类图.png}
-%     \caption{TaskGraphMgnt模块类图}
-%     \label{fig:badge}
-% \end{figure}
-
-% TaskGraphMgnt类通过ExcelReader类里的方法读取输入任务用
-% 例的Excel表，将任务信息遍历读取，根据任务用例中任务具
-% 体信息将任务根据自身信息生成不同类型的任务对象，将数
-% 据信息生成DataInst类对象。在Graph类中由多种类型的节
-% 点，如图5-2任务流图示例图所示每个节点之间双向连接。
-% 为每个TaskInst节点配置input\_data和output\_data两个字
-% 典，为每个DataInst节点配置producer和consumer两个字典，
-% 在Graph类中读取任务实例和数据实例，并根据在任务用例文
-% 件中任务和数据之间关系，分别将任务实例和数据实例填入
-% 不同节点的各自的两个字典中，并且将数据和任务之间依赖
-% 关系作为边设为edge\_list。在读取excel的过程中构造图
-% 的结构，并不断地将TaskInst和DataInst以及结合他们之
-% 间的映射关系加入Graph对象中。
-
-% \section{仿真平台调度器模型设计与实现}
-
-% 调度器模块通过Schdule模块读取TaskGraphMgnt对象里的Graph
-% 任务图对象读取出来。Graph对象形式是有向无环图类型，Schdule
-% 模块先遍历有向无环图，找到DAG图中没有入度的节点即为第一个
-% 任务或数据，将实例输入到调度器模块，由TOP模块接收判断类型，
-% 根据信息类型转发到SCH模块。
-
-% TOP模块负责接收外部模块发送过来的任务图中实例信息以及硬件模
-% 型处理任务完成后发送回来的响应，按照实例或者响应分开处理。
-% RES模块负责管理各个核的私有内存（包括L1D、PL2）；公共内存
-% 资源（如SL2等）；管理Device资源。SCH模块负责向RES模块申请
-% 管理的硬件资源和内存资源。并将任务信息或数据信息发送到申
-% 请好的硬件IP中进行处理。在SCH模块中对任务和数据处理流程
-% 图如图5-4所示：
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.55\textwidth]{调度器模块执行流程图.png}
-%     \caption{调度器模块执行流程图}
-%     \label{fig:badge}
-% \end{figure}
-
-% 调度器模块主要负责接收由Schedule模块中发送的实例级对象（包括数据
-% 实例和任务实例）以及硬件模型执行完任务发送的响应消息。调度器模块
-% 接收到如果是Schedule模块发送过来的实例级对象，调度器TOP模块接收
-% 到实例对象后将实例对象发送到SCH模块进行资源的申请和任务的调度。
-% 如图5-4所示实例对象分为数据实例和任务实例区分。当实例对象为数据
-% 实例时，SCH模块根据数据实例中的数据信息将数据实例拆分成DMA任务
-% 链，并为DMA任务链向申请DMA硬件资源以及每个DMA任务的所需的内存
-% 空间（DMA任务为数据搬运任务）。当实例对象为任务实例时，任务实
-% 例类型分为DSP任务和HAC任务，SCH模块根据任务信息申请空闲的硬件
-% 资源和内存资源，将任务实例发送到对应的硬件模型中执行，任务的 
-% 下一节点，则停止。当所有的任务都执行到没有出度的节点时，整
-% 个仿真就结束了。这就是仿真平台的整个仿真流程经过调度模块调度
-% 的整个流程。
-
-\section{仿真平台Processor相关模块设计与实现}
-
-仿真平台中Processor模块主要功能为：接收调度器模块发送过来的任务实例并
-提取任务实例中中的任务信息，在具体的硬件实例上根据任务信息处理任务。
-Processor模型类型主要分为DSP模块、DMA模块和HAC模块。下面详细阐述了仿真平台Processor
-相关模块设计与实现。
-
-\subsection{GeneralFifo模块设计与实现}
+\section{GeneralFifo模块设计与实现}
 
 在整个仿真平台中，我们需要实现硬件模型能够在别的模块发送过来消息时
 能够及时的对发送过来的消息进行处理，以及模型外部能够接收别的模型发
 送过来消息的消息队列。这种消息队列主要用于Processor模块的流水线功能
-的实现。这部分会在具体的Processor模型中阐述。
-我们基于Simpy的仿真机制实现了GeneralFifo模块，并在整体仿真平台构建
+的具体实现。
+
+我们基于Simpy的事件机制实现了GeneralFifo模块，并在整体仿真平台构建
 时将此模块作为基础数据结构使用，与先入先出队列的整体逻辑类似。我们
 在概要设计中简要介绍了GeneralFifo的整体执行流程。我们在这一节详细
 介绍GeneralFifo的设计。GeneralFifo模块的类图如图5.3所示：
@@ -175,12 +91,18 @@ GeneralFifo模块的底层实现基于数据结构双向队列deque实现。整�
 件触发时，会使在其他模块等待该事件触发的进程开始继续执行，从而实
 现该队列一旦有对象存入，能够及时通知其他模块将对象从队列中取出进
 行操作。同时，当队列为满时，其他模块只需等待free\_fifo\_event事件
-触发，其他模块即可继续向Fifo中Push对象。这样就是实现不同模块之
-间基于GeneralFifo的信息传输的功能，以及实现一个模块等待信息的
+触发，其他模块即可继续向Fifo中Push对象。这样就实现了不同模块之
+间基于GeneralFifo的信息传输的功能，以及实现一个进程或者模块等待信息的
 场景。在仿真平台中所有模块之间交互以及Processor模块的实现都是
 基于GeneralFifo实现的。
 
-\subsection{Processor模块设计与实现}
+\section{Processor模块设计与实现}
+
+仿真平台中Processor模块主要功能为：接收调度器模块发送过来的任务实例并
+提取任务实例中中的任务信息，在具体的硬件实例上根据任务信息处理任务。
+Processor模型类型主要分为DSP模块、DMA模块和HAC模块。下面详细阐述了
+仿真平台Processor相关模块设计与实现。
+
 Processor模块主要实现对三种基础硬件模型（DSP、HAC和DMA）的建模
 以及Processor模块与调度器模块之间的交互。在实现三种基础模型的
 建模之前，我们实现ProcessorBase类，通过ProcessorBase类所有
@@ -193,29 +115,37 @@ Processor模型的基础功能进行实现。
 法去记录log信息，并统一设置整个仿真过程中的log等级，以应对不同情
 况下的业务仿真；GeneralModule模块中也将数据库模块和具体模块之间
 联系起来，在各模块中可以调用其基类GeneralModule类中的message
-方法去记录信息并存储到数据库中。GeneralModule模块关系类图如下图所示：
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.7\textwidth]{GeneralModule关系类图.png}
-    \caption{GeneralModule关系类图}
-    \label{fig:badge}
-\end{figure}
+方法去记录信息并存储到数据库中。
 
 Processor模块具体实现三种模型的功能建模，分别为DMA模型、DSP模型
 以及HAC模型。DMA模型的主要功能是要实现数据搬运功能，为DSP模型中
-的具体执行将数据从SL2搬运到具体DSP组的PL2中或者数据处理结束后从
-PL2搬运到SL2，再或者仅仅只进行内存中的数据交换。DSP模型模拟核的
-执行过程的流程，主要执行数据的处理。硬件加速器（HAC：HardWare 
-Accelerator）模型模拟了从数据搬运到数据处理再到数据搬出的整体
-流程。HAC主要为了执行某一种特定的执行多次的硬件任务，任务在HAC
-上执行速度较快，任务的整个执行流程均在HAC硬件上完成。
+的具体执行将数据从SL2搬运到相应DSP组的PL2中或者数据处理结束后从
+PL2搬运到SL2，再或者仅仅只进行内存中的数据交换。DSP模型模拟DSP芯片的
+数据处理任务执行过程的流程，主要执行数据的处理。HAC模型模拟了从数据搬
+运到数据处理再到数据搬出的整体流程。HAC主要为了执行某一种特定的
+执行多次的硬件任务，任务在HAC上执行速度较快，任务的整个执行流程
+均在HAC硬件上完成。
 
-调度器模块需要将任务分发到调度器向RES模块申请的具体的硬件模型。
+% 调度器模块与Processor模块交互以及任务执行整个流程
+整个任务执行流程周期是由任务管理模块解析任务实例为开始，任务管理模块解析
+任务实例后，由调度器模块接收任务管理模块解析后并重新整理的任务实例，调度器
+模块根据接收到的任务信息去申请对应的硬件资源（包括硬件模型以及空闲的内存空间），
+接下来调度器模型将任务实例发送到申请到的硬件模型上，由对应的硬件模型对任务实例
+进行处理，硬件模型对任务处理完成后，将任务执行完的响应消息发送回调度器，由调度
+器模型对该任务实例标记完成，此时一个任务的整个执行流程就结束了。任务实例的整个
+执行流程图如图5.4所示：
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{任务执行流程图.png}
+    \caption{任务执行流程图}
+    \label{fig:badge}
+\end{figure}
+
+调度器模块需要将任务分发到调度器中资源调度模块申请的特定的硬件模型。
 但由于整个平台软硬件设计分离，调度器模块无法获取硬件平台整体构
-建信息，无法直接与硬件模块相互交互。因此我们需要一个模块实现调
+建信息，无法直接与硬件模块之间进行信息交互。因此我们需要一个模块实现调
 度器模块与具体硬件模型之间的交互，为此我们在Processor模块中设
-计了单实例ProcessorMgnt，用于实现交互功能。Processor模块以及
+计了单实例ProcessorMgnt，用于实现消息交互功能。Processor模块以及
 相关模块关系如图5.5所示：
 
 \begin{figure}[!h]
@@ -225,7 +155,7 @@ Accelerator）模型模拟了从数据搬运到数据处理再到数据搬出的
     \label{fig:badge}
 \end{figure}
 
-图5-7显示了ProcessorMgnt、三种具体的Processor模型、所有
+图5.5显示了ProcessorMgnt、三种具体的Processor模型、所有
 Processor模型的基类ProcessorBase以及几者之间的关系。在
 ProcessorMgnt模块中，各个模块在实例化的时候通过调用单实例的
 对应方法通过相应类型的dict去记录，dict以模型名为键值。当其
@@ -239,9 +169,17 @@ ProcessorMgnt模块中，各个模块在实例化的时候通过调用单实例�
 我们先介绍在仿真平台中传输的数据类型。
 
 在仿真平台中传输的数据主要包括RwObject、Burst以及Flit三种。在
-最外层硬件模块中传输的数据的数据类型为RwObject，数据在总线上
-传输的数据格式为Flit。图5.6为三种数据类型的类图，以及图5.7
-为三种数据类型之间的关系图。
+最外层硬件模块中传输数据的数据类型为RwObject，数据在总线上
+传输的数据格式为Flit。这三种数据格式均包含着数据请求的关键信息：
+请求类型、目的地址，数据长度等等，还包含着每个对象独有的id（如ObjectId，
+BurstId等等）。DMA模块或者HAC模块需要进行数据搬运的时候，
+将数据封装成RwObject发送到所在硬件对应的Port上，由PortMgnt模块
+对RwObject进行拆分，将其拆封成总线位宽的Flit数据帧。Flit数据帧
+仅在总线上可见，在仿真平台上可见的还是RwObject。图5.6为三种数据
+类型的类图，以及图5.7为三种数据类型之间的关系图。
+\\
+\\
+\\
 
 \begin{figure}
     \centering
@@ -257,26 +195,33 @@ ProcessorMgnt模块中，各个模块在实例化的时候通过调用单实例�
     \label{fig:badge}
 \end{figure}
 
-接下来介绍三种基础硬件模型的具体实现：首先我们介绍DSP模块
-的功能实现。DSP模拟的是核的处理过程，在
-仿真过程系统只需模拟真实的处理时延即可。调度器模块将任务用
-例通过ProcessorMgnt模块发送到DSP模块的input\_fifo中，在模
-型中process\_thread一直在等待输入，FIFO中一旦有对象传入，
-进程就开始进行处理。处理时延在输入的任务用例表中已有，我
-们只需从任务用例中取出时延信息，在乘以硬件的时钟频率即可
-得到需要停止的仿真时间。
 
-接下来我们介绍DMA模块的功能实现。DMA模块需要完成的对DSP
-模块需要处理数据的搬入搬出，将数据从SL2内存中搬入DSP模
+下面介绍三种基础硬件模型的具体实现：首先我们介绍DSP模块
+的功能实现。DSP模块模拟的是DSP芯片的数据处理任务执行过程，在
+仿真平台的流程中只需模拟真实的处理时延即可。调度器模块将任务用
+例通过ProcessorMgnt模块发送到DSP模块的input\_fifo中，在硬件模
+型中process\_thread一直在等待输入，DSP模型的input\_fifo中一旦有对象传入，
+该事件被触发后，process\_thread进程就开始进行处理。处理时延在输入的任务
+描述符中已经存在，DSP模型只需从任务描述符中取出时延信息，在乘以硬件的时钟
+频率即可得到需要等待的仿真时间。DSP模块在任务链中作用负责完成输入数据的处理。
+在仿真平台中只完成处理时延的仿真，并不真实的进行数据的处理。前搬移任务、DSP任
+务以及后搬移任务形成一整个任务链，三者任务信息由同一个任务实例携带，当前搬移
+DMA任务完成时，解析任务实例中的信息得到下一级DSP任务的硬件模型名，通过
+ProcessorMgnt将任务实例发送到对应DSP模型input\_fifo中，触发相应的DSP任务，
+发回调度器的响应只用来释放DMA任务申请的系统资源。
+
+接下来介绍DMA模块的功能实现。在仿真平台中，DMA任务一般分为纯DMA任务、前搬移
+任务以及后搬移任务。其中前搬移任务和后搬移任务都是包含在DSP任务链里面的，而
+纯DMA任务只是单纯将数据从一块地址搬移到另外一块地址。DMA模块需要完成的对DSP
+模块需要进行处理的数据的搬入搬出，将数据从对应SL2内存中搬入DSP模
 块的PL2内存中的过程称为前搬移，将数据从PL2内存搬运到SL2
 的过程称为后搬移。数据的搬入搬出，DMA模块通过任务用例中
 的地址和数据大小信息创建RWObject，通过MasterPortMgnt经
-过总线进行传输，在总线上的传输在后续介绍总线互联模块的
-时候详细阐述。我们创建两个线程分别用来处理数据的搬入和
+过总线进行传输，DMA模块在实例化的过程中创建两个线程分别用来处理数据的搬入和
 数据的搬出，以及创建一个线程获取DMA任务实例和控制总体
-的流水线深度。DMA模块通过各级线程以及线程之间的FIFO实
-现流水线。每一级线程均从FIFO中取任务实例，执行完任务
-实例，再将任务实例发到下一级的FIFO中，从而实现流水线
+的流水线深度。DMA模块通过各级线程以及线程之间的Fifo实
+现流水线。每一级线程均从Fifo中取出任务实例，执行完任务
+实例之后，再将任务实例发到下一级线程的Fifo中，从而实现流水线
 。DMA模块的流水线执行时序图如图5.8所示：
 
 \begin{figure}
@@ -286,20 +231,16 @@ ProcessorMgnt模块中，各个模块在实例化的时候通过调用单实例�
     \label{fig:badge}
 \end{figure}
 
-DSP模块负责完成输入数据的处理。我们在仿真平台中只完
-成处理时延的仿真，并不真实的进行数据的处理。前搬移
-任务、DSP任务以及后搬移任务形成一整个任务流程，当
-前搬移DMA任务完成时直接触发相应的DSP任务，发回调
-度器的响应只用来释放DMA任务申请的系统资源。
 
-HAC模块是用来处理专用任务的硬件。一种HAC只用来执
-行一种任务，用来加速任务的处理。HAC硬件模块中需
-要完成数据的搬入、处理以及搬出的一整套流程。HAC
-模块接收调度器模块发送过来的HAC任务实例，HAC任
-务实例中记录着输入数据、处理时延以及输出数据等
-相关信息。HAC模块通过三级流水实现数据搬入、数
-据处理以及数据搬出的功能。HAC模块的三级流水时
-序图如图5.9所示：
+HAC模块是用来处理专用任务的硬件。一种HAC只用来执行一种任务，用来加速任务的处理。
+HAC硬件模块中需要完成数据的搬入、处理以及搬出的一整套流程。HAC模块接收调度器
+模块发送过来的HAC任务实例，HAC任务实例中记录着输入数据、处理时延以及输出数据等
+相关信息。HAC模块通过三级流水实现数据搬入、数据处理以及数据搬出的功能。调度器模块
+发送HAC任务实例到相应HAC模块的input\_fifo中，当input\_fifo接收到任务实例后，
+HAC模块的input\_thread等待的事件被触发，进程加锁不再接收任务实例，进程开始执行
+数据搬入的操作，把数据从相应的SL2内存中搬运到PL2内存中，操作执行结束后，将任务实例
+放入inner\_fifo中，进程解锁。后续两个进程重复此类操作，形成HAC内部的三级流水的任务
+执行。HAC模块的三级流水时序图如图5.9所示：
 
 \begin{figure}
     \centering
@@ -308,118 +249,71 @@ HAC模块是用来处理专用任务的硬件。一种HAC只用来执
     \label{fig:badge}
 \end{figure}
 
-此外，Processor模块还在DSP模型和HAC模型中实现统计核工作
-的时间片的通过。通过dsp\_monitor\_thread和hac\_monitor\_thread
+此外，Processor模块还在DSP模型和HAC模型中实现统计每个定长的时间片
+内的硬件利用率。通过dsp\_monitor\_thread和hac\_monitor\_thread
 两个进程分别去统计DSP模型和HAC模型的执行时间片。以DSP模块
 为例，DSP模块在从FIFO中取出任务实例时触发process\_start\_event，
 处理完时延后触发process\_end\_event。这两个事件都会使挂起的进程
-开始执行，从而统计DSP模型每次执行的时间片区间。HAC模型内部工
-作时间块统计与之相同。
-
-% \subsection{Port模块设计与实现}
-% 在仿真平台中，在不同模块之间通过总线进行通讯，而总线在不同模块上
-% 的端口则是Port模块。针对端口设计的可扩展性，我们以Moudule Port 
-% Base为基础，采用Master/Slave方式。在仿真平台中，所有端口采用双
-% 向绑定机制，即在Master端可以调用Slave端的方法.
-
-% 仿真平台中现在主要有两种模块间通讯接口，一种为硬件模型模块间的接
-% 口：Virtual Master Port和Virtual Slave Port，另一种是总线内部子
-% 模块之间的流水线通讯接口VBusPipeLineMasterPort与VBusPipeLineSlavePort。
-% Port模块的关系类图如图5-13所示：
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=1\textwidth]{Port模块关系类图.png}
-%     \caption{Port模块关系类图}
-%     \label{fig:badge}
-% \end{figure}
-
-% Master Device在硬件实例化的时候创建对应的VirtualMasterPort，
-% Slave Device在硬件实例化的时候创建对应的VirtualSlavePort。
-% Master Device一般是硬件Processor模型，在5.3.2节所介绍，
-% 硬件IP实例化时通过调用ProcessorBase的方法add\_port创建
-% Port端口。Slave Device一般值得是Memory模块。在平台构建
-% 时，VirtualMasterPort和VirtualSlavePort通过硬件平台配
-% 置表上的信息进行绑定。这两种端口都由PortMgnt进行管理，
-% 如上一小节所说，Master端通过MasterPortMgnt调用
-% send\_wr\_flit和send\_rd\_flit方法向sendWrFlitFifo和
-% sendARFlitFifo发送写地址请求、写数据请求和读地址请求，
-% Slave设备调用send\_wr\_rsp\_flit和send\_rd\_data\_flit和send
-% 方法向recvWrRspFifo和recvRdDataFifo返回读数据和写响应。
-% VbusPipeLineMasterPort和VbusPipeLineSlavePort模块在BUS
-% 模块设计中介绍。
-
-% \subsection{BUS模块设计与实现}
-
-% 在仿真平台硬件模块中，所有数据信息的传输都是通过总线模块进行，
-% 所有的数据传输都是通过Port模块拆分封装成Flit格式的数据包经过
-% 总线模块从一个硬件模块发送到另一个硬件模块。
-% Virtual Bus模块由多个模块构成，每个模块负责不同的功能。BUS模块
-% 整体架构图如4.2.3节图4-5所示。模块主要分为三种：总线输入模块
-% InputStage、总线处理模块（包括各个通道的译码器和仲裁器等）以
-% 及总线输出模块TLOutputStage。每一个Master Device或Slave Device
-% 都通过总线端口连接到Virtual Bus中对应的InputStage模块或
-% TLOutPutStage模块。
-
-% 在传输过程中，Master设备发起的读写请求通过Port端口传入到
-% InPutStage模块当中，InputStage通过Fifo将请求发送到对应的译码
-% 器，译码器经过地址译码将请求发送发送到对应的仲裁器，仲裁器根
-% 据优先级将写入数据发送到对应的TLOutPutStage进而传输到Slave 
-% Device或者取数据发送回InputStage进而返回Master Device。
-
-% 总线处理模块的主要功能是地址译码、优先级仲裁以及模拟每个
-% flit的传输。BUS模块中一共有四种通道，分为写通道、读地址通道、
-% 写响应通道和读数据通道。每个通道都有一套独立的译码模块和仲裁
-% 模块，各个模块之间通过端口连接，使用Fifo实现数据消息的传输。
-% 每个Master端口对应一个WDecoder、一个RDecoder、一个ARDecoder
-% 以及一个BDecoder，一个Slave端口对应一个WArbiter、一个RArbiter、
-% 一个ARArbiter以及一个BArbiter。通过一个管理模块将一种功能的所有
-% 模块聚合到一起进行管理。
-
-% BUS模块的的类图如图5-14所示：
-% \\
-% \\
-% \\
-% \\
-% \\
-% \\
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=1\textwidth]{BUS模块关系类图.png}
-%     \caption{BUS模块关系类图}
-%     \label{fig:badge}
-% \end{figure}
-
-% InputStage模块在整个BUS模块中的作用是作为外部Master Device与
-% 内部沟通的桥梁。主要的工作流程是接收Master Device发送来的flit，
-% 并将flit发送到对应的译码模块；以及将来自仲裁模块的flit发送回
-% Master Device。主要通过四个不同的FIFO接收不同种类的flit
-% （写请求、读请求、写响应、读响应）。
-
-% OutputStage模块在整个BUS模块中是模块内部与Slave设备沟通的桥梁。
-% 主要的工作的流程是接收来自总线模块内部发送来的flit，并将flit发
-% 送到对应的Slave设备的Port模块；或者将Slave设备Port返回的响应发
-% 送到对应的Decoder模块上。同样也是通过四个不同的FIFO接收四种类
-% 型的flit。
-
-% BUS模块的每个通道都有独立的译码模块，但读数据通道和写响应通道的
-% 译码模块都是对响应的译码，处理逻辑相同，我们将读数据通道和写响
-% 应通道的译码器模块合二为一。在平台中，一个总线模块对应一个Port
-% 模块。同一个通道的Decoder由一个DecoderMgnt进行管理。BUS模块在
-% 实例化的时候会读取平台解析的memory mapping信息并将这些信息汇
-% 总成一个路由表。当flit到达译码模块时，译码模块通过路由表寻址
-% 到flit目的地址所对应的Slave Device的Arbiter模块，并将flit发
-% 送到对应的Slave Device的Arbiter模块。在译码过程中一个Burst
-% 的所有的flit只有第一个到达译码模块的flit需要进行译码过程，
-% 接下来译码模块会记录该Burst对应的Arbiter模块，当其余flit发
-% 送过来时就不需要重复译码。
-
-% Arbiter模块的作用是对同一通道来自不同Decoder模块发送过来的
-% flit进行传输顺序的仲裁。现在仲裁模块的算法采用的轮询算法，
-% 但在轮询算法的基础上回尽可能的保证同一个Burst的flit能够连
-% 续发送。一个通道的所有Arbiter都会通过各自的ArbiterMgnt进
-% 行管理。
+开始执行，从而统计DSP模型每次执行的时间片区间。同时为了统计每一段
+时间片内每个硬件的占用率，硬件模型中ProcessorMgnt模块统计了所有硬件模型的
+对象，ProcessorMgnt模块在平台初始化时创建processor\_usage\_monitor字典，
+processor\_usage\_monitor每个时间片的每个硬件模型的核利用率初始值设置为0，用于
+统计每段时间片内的硬件利用率，并在对应的硬件模型中通过对应的进程去记录。在相应
+的进程中，先设置变量Start和End来记录任务的开始时间戳以及结束时间戳，并设置标记
+记录当前时间戳为任务开始的时间戳还是任务结束的时间戳。并通过每次Start和End之间时
+间差去计算统计每个时间片的硬件利用率，并将相应的核利用率记录到processor\_usage\_monitor
+中。在整个用例仿真结束后，在ProcessorMgnt模块中通过usage\_statistic方法去将
+processor\_usage\_monitor中的内容统一的存储到数据库中。HAC模型内部工作时间块
+统计与之相同。硬件模型核利用率的监控进程的伪代码如下所示：
+\\
+\\
+\\
+\\
+\\
+\begin{algorithm}[h]
+    \renewcommand{\algorithmcfname}{伪代码}
+    \caption{统计每个时间片内的核利用率}
+    \KwData{时间片长度 $l$,任务开始时间戳 $Start$, 任务结束时间戳$End$, 当前时间戳类型$Flag$, 核利用率字典$processor\_usage\_dict$}
+    \KwIn{进程触发时间戳 $time$}
+    \KwResult{$processor\_usage\_dict$}
+    \BlankLine
+    $Start$ \leftarrow 0\;
+    $End$ \leftarrow 0\;
+    \tcc{loops}
+    \emph{the thread is triggered}\;
+    \tcp{$Flag$(0: the $time$ is start; 1:the $time$ is end)}
+    \If{$Flag$ is 0}{
+        $k$ \leftarrow $End$ / $l$\;
+        $interval$ \leftarrow ($time$ - $k*l$)\;
+        $n$ \leftarrow $interval$ / $l$\;
+        \If{$n != 0$}{
+            \For{$i=k+1$ \KwTo $k+n$}{
+                $processor\_usage\_dict$(i) \leftarrow $0$\;  
+            }
+        }
+        $Start$ \leftarrow $time$\;
+        $Flag$ \leftarrow $1$\;
+    }
+    \Else{
+        $k$ \leftarrow $Start / l$\;
+        $interval$ \leftarrow $(time - k*l)$\;
+        $n$ \leftarrow $interval$ / $l$\;
+        \If{$n!=0$}{
+            $processor\_usage\_dict(k)$ \leftarrow ($processor\_usage\_dict(k) + (k*l - Start)/l$)\;
+            \If{$n != 1$}{
+                \For{$i=k+1$ \KwTo $k+n-1$}{
+                    $processor\_usage\_dict(k+1)$ \leftarrow $1$;
+                }
+            }
+            $processor\_usage\_dict(k+1)$ \leftarrow $(time - (k+1)*l)/l$\;
+        }
+        \Else{
+            $processor\_usage\_dict(k+1)$ \leftarrow $(time - Start)/l$\;
+        }
+        $End$ \leftarrow $time$\;
+        $Flag$ \leftarrow $0$\;
+    }
+\end{algorithm}
 
 \section{仿真平台Memory模块设计与实现}
 
@@ -433,11 +327,9 @@ Bank位宽为256字节的设计方案。Memory模块在实例化的时候创建4
 Memory模块可以同时处理不同的Bank模块上的Bank操作，但每个Bank模块同时只
 能处理一个Bank操作。Bank模块的交织方案如图5.10所示:
 \\
-\\
-
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{Bank模块交织方案.png}
+    \includegraphics[width=0.82\textwidth]{Bank模块交织方案.png}
     \caption{Bank模块交织方案}
     \label{fig:badge}
 \end{figure}
@@ -566,25 +458,26 @@ Master设备，完成一整个读写操作。
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{设计空间探索结果仿真目标值结果对比图.png}
+    \includegraphics[width=1\textwidth]{设计空间探索结果仿真目标值结果对比图.png}
     \caption{设计空间探索结果仿真目标值结果对比图}
     \label{fig:badge}
 \end{figure}
 
-根据图5.15我们可以找到对于这几个方面单独而言最优的几个设计方案，我们基于优化目标将所有方案的结果
-以及原始设计方案放到一起进行比较。比较结果如图5.16至5.18所示：
+根据图5.15针对仿真时延、核利用率以及核一致性三个目标值，我们可以得到相
+对于这三个目标值各自方向的最优解。下面我们对三个目标值单独进行分析并将
+设计空间探索所得到的最优解集放在一起进行比较。我们基于优化目标将所有方
+案的结果以及原始设计方案放到一起进行比较。比较结果如图5.16至5.18所示：
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{50组设计方案时延结果对比.png}
+    \includegraphics[width=0.53\textwidth]{50组设计方案时延结果对比.png}
     \caption{50组设计方案时延结果对比}
     \label{fig:badge}
 \end{figure}
 
 图5.16中横坐标为设计方案序号，纵坐标为仿真时延，红色虚线为初始设计方案及其对应的仿真时延。
 由图5.16及对应序号的设计方案可以看出序号为35、43、20、27、14、7、48、12、13、23的方案较好。并且通过各个设计方案值之间的结果对比可以得出影响时延结果的主要因素为核的数量以及总线位宽等等。
-
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.6\textwidth]{50组设计方案核利用率结果对比.png}
     \caption{50组设计方案核利用率结果对比}
@@ -594,7 +487,7 @@ Master设备，完成一整个读写操作。
 由图5.17及对应序号的设计方案可以看出序号33、28、42、29、47、39、36、38、4、26的方案较好。
 并且通过各个设计方案之间的结果对比可以得出影响核利用率的主要因素为核的数量及CU数量等等。
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.6\textwidth]{50组设计方案核一致性结果对比.png}
     \caption{50组设计方案核一致性结果对比}
@@ -609,8 +502,9 @@ Master设备，完成一整个读写操作。
 时延和核的利用率优化方向相反。仿真时延低的几种方案，设计参数中Dsp数量较大，但由于Dsp数量较大，
 导致核的利用率和一致性效果较差。而核的利用率和核的一致性优化方向相同，最优的几个设计方案设计参数
 大致相同。于是我们就核利用率和仿真时延两个方面进行考虑，结果图如图5.19所示：
-
-\begin{figure}
+\\
+\\
+\begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{仿真平台结果分析图.png}
     \caption{仿真平台结果分析图}
@@ -619,7 +513,7 @@ Master设备，完成一整个读写操作。
 
 从图5.19中我们可以找到6种方案在仿真时延和核利用率两个方面表现都很优秀的设计方案如表5.3所示:
 
-\begin{table}[]
+\begin{table}[h]
     \centering\footnotesize
     \caption{最优设计方案设计参数}
     \begin{tabular}{|c|c|c|c|c|c|c|c|}
@@ -640,9 +534,7 @@ Master设备，完成一整个读写操作。
 
 本章的工作主要是在第四章概要设计的基础上，详细的阐述了仿真平台中硬件平台
 的构建、Processor模块以及Memory模块的具体实现，介绍了设计空间探索流程的
-具体设计和实现。包括硬件平台的搭建、Processor
-模块和Memory模块设计和实现，最后基于设计实现的仿真平台，阐述了设计空间流程
-的设计和实现。实现整个仿真平台的搭建以及基于仿真平台的设计空间探索流程，
+具体设计和实现。实现整个仿真平台的搭建以及基于仿真平台的设计空间探索流程，
 最后得到了设计空间探索结果种群，并对最终得到的设计空间探索结果进行了分析，得到了最终的
 最优设计方案以及设计方案优化的目标
 
