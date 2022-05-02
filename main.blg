@@ -1,0 +1,58 @@
+This is BibTeX, Version 0.99d (TeX Live 2021/W32TeX)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: ustcthesis-numerical.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 150 items from 100.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: bib/ustc.bib
+Warning--empty booktitle in 4
+Warning--empty journal in 38
+Warning--empty journal in 15
+You've used 37 entries,
+            5265 wiz_defined-function locations,
+            1206 strings with 12138 characters,
+and the built_in function-call counts, 218631 in all, are:
+= -- 5255
+> -- 23756
+< -- 30922
++ -- 9409
+- -- 1956
+* -- 1471
+:= -- 31107
+add.period$ -- 114
+call.type$ -- 37
+change.case$ -- 168
+chr.to.int$ -- 8032
+cite$ -- 40
+duplicate$ -- 930
+empty$ -- 2375
+format.name$ -- 904
+if$ -- 56566
+int.to.chr$ -- 3
+int.to.str$ -- 38
+missing$ -- 0
+newline$ -- 207
+num.names$ -- 111
+pop$ -- 10084
+preamble$ -- 1
+purify$ -- 37
+quote$ -- 0
+skip$ -- 21905
+stack$ -- 0
+substring$ -- 10700
+swap$ -- 42
+text.length$ -- 747
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 399
+warning$ -- 3
+while$ -- 803
+width$ -- 0
+write$ -- 509
+(There were 3 warnings)

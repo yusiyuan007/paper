@@ -2,22 +2,28 @@
 
 \ustcsetup{
   keywords = {
-    电子系统级设计, 轻量级仿真平台， Simpy, 多目标优化, 设计空间探索，硬件平台建模
+    电子系统级设计, 轻量级仿真平台， SimPy, 多目标优化, 设计空间探索，硬件平台建模
   },
   keywords* = {
-    Electronic System Level,Lightweight simulation platform, Simpy, Multi-objective optimization, Design Space Exploration，Hardware platform modeling
+    Electronic System Level,Lightweight simulation platform, SimPy, Multi-objective optimization, Design Space Exploration，Hardware platform modeling
   },
 }
 
 \begin{abstract}
-  随着片上系统的设计复杂性不断提高，在设计前期通过对系统层次进行软、硬件的划分对片上系统各方面性能的影响日趋增加，
-  迫切需要高效快捷的性能分析和验证方法学。而ESL设计方法不仅提供快速的仿真验证方法，还提供了详细的性能分析指标，现如今已经成为
-  SoC设计领域最先进的设计方法。
+  随着片上系统的设计复杂性不断提高，在设计前期通过对系统层次进行软、硬件的划分
+  对片上系统各方面性能的影响日趋增加，迫切需要高效快捷的性能分析和验证方法学。
+  而ESL(Electronic System Level)设计方法不仅提供快速的仿真验证方法，还提供了
+  详细的性能分析指标，现如今已经成为SoC(System on Chip)设计领域最先进的设计方
+  法。
 
-  由于片上系统设计复杂性的提高，在方案设计的过程中考虑到系统设计的每个方面变得不那么可能，因此我们需要自动化的工具
-  或者流程去完成前期对巨大的设计空间的剪枝，设计空间探索（Design Space Exploration，DSE）成为了一种很好的方法去实
-  现这一功能。但在如今系统级仿真过程中，仿真系统的复杂度越来越大，从而导致系统的复杂程度不适于进行快速的架构探索，所
-  以我们需要建立一个轻量级的仿真平台，并在这个平台的基础上进行快速的架构探索。针对以上问题，本文做了以下几部分工作：
+  在芯片设计过程中，我们需要不断的对系统的设计参数进行修改从而得到性能更优的芯片架构。
+  但由于片上系统设计复杂性的提高，片上系统的系统参数变得更多而且范围更广，去考虑系统设计的每个方面变得不那么可能，因此我们需要自动化的工
+  具或者流程去完成前期对巨大的设计空间的剪枝，设计空间探索（Design Space 
+  Exploration，DSE）成为了一种很好的方法去实现这一功能。但在如今系统级仿真过程
+  中，仿真精度以及仿真的严谨性的要求下，仿真系统内部的复杂度越来越大，从而导致
+  现如今的仿真系统不适于进行快速的架构探索，所以我们需要建立一个轻量级的仿真平
+  台，并在这个平台的基础上进行快速的架构探索。针对以上问题，本文主要完成了以下
+  几部分工作：
 
   \begin{enumerate}
     \item 设计并实现了轻量级仿真平台中硬件平台模块，包括硬件平台构建模块以及硬件模型建模。与仿真平台
@@ -29,26 +35,27 @@
   \end{enumerate}
 
   本文详细介绍了包含轻量级仿真平台硬件平台建模和设计空间探索流程中训练集生成模块以及仿真平台预测模型的需求分析、概要设计、系统设计与实现和系统测试与结果分析。
-  本文为业内在前期芯片架构方案设计阶段提供新的一整套解决方案，并设计并实现了一个轻量级仿真平台，为一些快速的设计方案的实
+  并且为业内在前期芯片架构方案设计阶段提供新的一整套解决方案，并设计并实现了一个轻量级仿真平台，为一些快速的设计方案的实
   现提供了更加方便的平台。
 \end{abstract}
 
 \begin{abstract*}
   With the increasing complexity of system-on-chip design, the influence of software and hardware division on the performance of 
   system-on-chip is increasing day by day in the early stage of design, so efficient and efficient performance analysis and 
-  verification methods are urgently needed. The ESL design method not only provides fast simulation verification methods, but 
-  also provides detailed performance analysis indicators, and has become the most advanced design method in the field of SoC 
+  verification methods are urgently needed. The ESL(Electronic System Level) design method not only provides fast simulation verification methods, but 
+  also provides detailed performance analysis indicators, and has become the most advanced design method in the field of SoC(System on Chip) 
   design.
 
+  In the process of chip design, we need to constantly modify the design parameters of the system to get a better chip architecture.
   Due to the increase in the complexity of system-on-chip design, it has become impossible to consider every aspect of system 
-  design in the process of scheme design. Therefore, we need automated tools or processes to complete the pruning of the huge 
+  design. Therefore, we need automated tools or processes to complete the pruning of the huge 
   design space in the early stage. Design Space Exploration (DSE) has become a good way to achieve this function. But in the 
   current system-level simulation process, the complexity of the simulation system is getting bigger and bigger, which makes 
   the complexity of the system unsuitable for rapid architecture exploration. Therefore, we need to build a lightweight simulation 
   platform. Based on the rapid structure exploration. In response to the above problems, this article has done the following parts:
 
   \begin{enumerate}
-    \item The hardware platform module in the lightweight simulation platform is designed and implemented, including hardware platform construction module and hardware model modeling. Together with the software part of the simulation platform and the bus interconnection module, it forms the whole lightweight simulation platform, takes the use case file and hardware configuration file as the input, completes the whole process of business simulation, and finally outputs the simulation results and the database file storing the information in the simulation process, which improves the efficiency of business simulation.
+    \item Design and implement a hardware platform module in the lightweight simulation platform, including hardware platform construction module and hardware model modeling. Together with the software part of the simulation platform and the bus interconnection module, it forms the whole lightweight simulation platform, takes the use case file and hardware configuration file as the input, completes the whole process of business simulation, and finally outputs the simulation results and the database file storing the information in the simulation process, which improves the efficiency of business simulation.
     \item Design and implement the training set generation module and simulation platform prediction model in the design space exploration process, participate in the multi-objective design space exploration, and obtain the final Pareto optimal solution. Through the comparative analysis of the results, the corresponding conclusions of the scheme design are obtained.
   \end{enumerate}
 
