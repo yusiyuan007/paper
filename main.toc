@@ -27,7 +27,8 @@
 \contentsline {section}{\numberline {3.3}非功能需求}{23}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}可扩展性需求}{23}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}可维护性需求}{23}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}性能需求}{24}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.3}仿真平台轻量级需求}{24}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}性能需求}{24}{subsection.3.3.4}%
 \contentsline {section}{\numberline {3.4}本章小结}{25}{section.3.4}%
 \contentsline {chapter}{\numberline {第4章}概要设计}{26}{chapter.4}%
 \contentsline {section}{\numberline {4.1}系统整体结构}{26}{section.4.1}%
@@ -65,4 +66,5 @@
 \contentsline {section}{\numberline {7.2}问题和展望}{66}{section.7.2}%
 \contentsline {chapter}{参考文献}{67}{chapter*.84}%
 \contentsline {chapter}{\numberline {附录 A}缩略词对照表}{70}{appendix.A}%
+\contentsline {chapter}{致谢}{71}{appendix*.86}%
 \contentsfinish 

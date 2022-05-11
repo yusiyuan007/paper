@@ -10,20 +10,20 @@
 }
 
 \begin{abstract}
-  随着片上系统的设计复杂性不断提高，在设计前期通过对系统层次进行软、硬件的划分
+  随着片上系统（SoC，System on Chip）的设计复杂性不断提高，在设计前期通过对系统层次进行软、硬件的划分
   对片上系统各方面性能的影响日趋增加，迫切需要高效快捷的性能分析和验证方法学。
   而ESL(Electronic System Level)设计方法不仅提供快速的仿真验证方法，还提供了
-  详细的性能分析指标，现如今已经成为SoC(System on Chip)设计领域最先进的设计方
-  法。
+  详细的性能分析指标，现如今已经成为SoC设计领域最先进的设计方
+  法。为缩短芯片设计周期,设计者需要在设计前期快速找到一种满足设计要求的最佳
+  参数配置。设计空间探索（Design Space Exploration，DSE）就是通过在大量不同的
+  参数配置下执行仿真,从而实现上述目标的过程。现有的仿真验证平台无法进行快速的仿真
+  验证，而设计空间探索流程中需要进行仿真的快速迭代。因此需要实现一个能够快速进行仿真验证的
+  轻量级仿真平台。
 
-  在芯片设计过程中，我们需要不断的对系统的设计参数进行修改从而得到性能更优的芯片架构。
-  但由于片上系统设计复杂性的提高，片上系统的系统参数变得更多而且范围更广，去考虑系统设计的每个方面变得不那么可能，因此我们需要自动化的工
-  具或者流程去完成前期对巨大的设计空间的剪枝，设计空间探索（Design Space 
-  Exploration，DSE）成为了一种很好的方法去实现这一功能。但在如今系统级仿真过程
-  中，仿真精度以及仿真的严谨性的要求下，仿真系统内部的复杂度越来越大，从而导致
-  现如今的仿真系统不适于进行快速的架构探索，所以我们需要建立一个轻量级的仿真平
-  台，并在这个平台的基础上进行快速的架构探索。针对以上问题，本文主要完成了以下
-  几部分工作：
+  本论文主要是通过ESL设计方法设计并实现一个基于SimPy仿真引擎的仿真验证平台，并基于该仿真
+  平台实现设计空间探索流程。该仿真平台能够快速地进行仿真验证并输出设计空间探索所需要的
+  目标参数。
+  本文的主要工作如下：
 
   \begin{enumerate}
     \item 设计并实现了轻量级仿真平台中硬件平台模块，包括硬件平台构建模块以及硬件模型建模。与仿真平台
@@ -31,7 +31,7 @@
     和硬件配置文件作为输入，完成业务仿真整个流程，并最终输出仿真结果以及存
     储仿真过程中信息的数据库文件，提高了业务仿真的效率。
     \item 设计并实现设计空间探索流程中的训练集生成模块以及仿真平台预测模型，参与实现了多目标的
-    设计空间探索，得到了最终的帕累托最优解。并通过对结果的对比分析，得出方案设计的相应结论。
+    设计空间探索，得到了最终的帕累托最优解集。并通过对最优解集进行验证和分析，得出芯片的最优设计方案。
   \end{enumerate}
 
   本文详细介绍了包含轻量级仿真平台硬件平台建模和设计空间探索流程中训练集生成模块以及仿真平台预测模型的需求分析、概要设计、系统设计与实现和系统测试与结果分析。
@@ -40,23 +40,28 @@
 \end{abstract}
 
 \begin{abstract*}
-  With the increasing complexity of system-on-chip design, the influence of software and hardware division on the performance of 
-  system-on-chip is increasing day by day in the early stage of design, so efficient and efficient performance analysis and 
-  verification methods are urgently needed. The ESL(Electronic System Level) design method not only provides fast simulation verification methods, but 
-  also provides detailed performance analysis indicators, and has become the most advanced design method in the field of SoC(System on Chip) 
-  design.
+  With the increasing design complexity of system on chip (SOC), the impact on all 
+  aspects of system on chip performance is increasing through the division of 
+  software and hardware at the system level in the early stage of design. There 
+  is an urgent need for efficient and fast performance analysis and verification 
+  methodology. ESL (electronic system level) design method not only provides 
+  fast simulation verification method, but also provides detailed performance 
+  analysis indicators. Now it has become the most advanced design method in 
+  the field of SoC design. In order to shorten the design cycle of microprocessor, 
+  designers must quickly find an optimal parameter configuration to meet the 
+  design requirements in the early stage of design. Design space exploration (DSE) 
+  is a process to achieve the above objectives by performing simulation under a 
+  large number of different parameter configurations.The existing simulation 
+  verification platform can not carry out fast simulation verification, 
+  but the rapid iteration of simulation is needed in the process of design 
+  space exploration. Therefore, it is necessary to implement a lightweight 
+  simulation platform that can quickly carry out simulation verification.
 
-  In the process of chip design, we need to constantly modify the design parameters of the system to get a better chip architecture.
-  Due to the increase in the complexity of system-on-chip design, it has become impossible to consider every aspect of system 
-  design. Therefore, we need automated tools or processes to complete the pruning of the huge 
-  design space in the early stage. Design Space Exploration (DSE) has become a good way to achieve this function. But in the 
-  current system-level simulation process, the complexity of the simulation system is getting bigger and bigger, which makes 
-  the complexity of the system unsuitable for rapid architecture exploration. Therefore, we need to build a lightweight simulation 
-  platform. Based on the rapid structure exploration. In response to the above problems, this article has done the following parts:
+  This paper mainly designs and implements a simulation verification platform based on simpy simulation engine through ESL design method, and realizes the opening of design space exploration process based on the simulation platform. The simulation platform can quickly carry out simulation verification and output the target parameters required for design space exploration.this article has done the following parts:
 
   \begin{enumerate}
     \item Design and implement a hardware platform module in the lightweight simulation platform, including hardware platform construction module and hardware model modeling. Together with the software part of the simulation platform and the bus interconnection module, it forms the whole lightweight simulation platform, takes the use case file and hardware configuration file as the input, completes the whole process of business simulation, and finally outputs the simulation results and the database file storing the information in the simulation process, which improves the efficiency of business simulation.
-    \item Design and implement the training set generation module and simulation platform prediction model in the design space exploration process, participate in the multi-objective design space exploration, and obtain the final Pareto optimal solution. Through the comparative analysis of the results, the corresponding conclusions of the scheme design are obtained.
+    \item Design and implement the training set generation module and simulation platform prediction model in the design space exploration process, participate in the multi-objective design space exploration, and obtain the final Pareto optimal solution.Through the verification and analysis of the optimal solution set, the optimal design scheme of the chip is obtained.
   \end{enumerate}
 
   This paper introduces in detail the demand analysis, outline design, system design and implementation, system test and result analysis of the training set generation module and simulation platform prediction model in the process of hardware platform modeling and design space exploration of lightweight simulation platform. This 

@@ -17,7 +17,7 @@
 \contentsline {figure}{\numberline {3.4}{\ignorespaces 普通用户1用例图\relax }}{20}{figure.caption.29}%
 \contentsline {figure}{\numberline {3.5}{\ignorespaces 普通用户1执行用例文件用例图\relax }}{20}{figure.caption.30}%
 \contentsline {figure}{\numberline {3.6}{\ignorespaces 高级用户用例图\relax }}{22}{figure.caption.31}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces 普通用户2用例图\relax }}{23}{figure.caption.32}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces 普通用户2用例图\relax }}{22}{figure.caption.32}%
 \addvspace {10.0pt}
 \contentsline {figure}{\numberline {4.1}{\ignorespaces 系统整体框架图\relax }}{26}{figure.caption.34}%
 \contentsline {figure}{\numberline {4.2}{\ignorespaces 硬件平台架构图\relax }}{27}{figure.caption.35}%
@@ -52,6 +52,7 @@
 \addvspace {10.0pt}
 \contentsline {figure}{\numberline {6.1}{\ignorespaces 硬件平台构建输出消息\relax }}{62}{figure.caption.80}%
 \contentsline {figure}{\numberline {6.2}{\ignorespaces 仿真运行输出消息\relax }}{63}{figure.caption.82}%
+\addvspace {10.0pt}
 \addvspace {10.0pt}
 \addvspace {10.0pt}
 \addvspace {10.0pt}
